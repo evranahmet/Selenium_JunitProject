@@ -1,6 +1,7 @@
 package utilities;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class JavascriptUtils extends TestBase{
@@ -42,18 +43,18 @@ public class JavascriptUtils extends TestBase{
         JavascriptExecutor javascriptExecutor = ((JavascriptExecutor) driver);
         javascriptExecutor.executeScript("arguments[0].style.backgroundColor = '" + color + "'", element);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     //Flashing the background color
     // https://www.rapidtables.org/tr/web/color/RGB_Color.html  bu siteden renk ayari yapilablir..Kirmizi- Yesil -Mavi
-    public static void flash( WebElement element) {
+    public static void flash( WebElement element, String color) {
         String bgColor = element.getCssValue("backgroundcolor");
-        for (int i = 0; i < 5; i++) {
-            changeBackgroundColorByJS(element, "rgb(0,200,0");
+        for (int i = 0; i < 10; i++) {
+            changeBackgroundColorByJS(element, color);
             changeBackgroundColorByJS(element, bgColor);
         }
     }
